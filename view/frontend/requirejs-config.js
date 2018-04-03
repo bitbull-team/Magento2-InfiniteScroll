@@ -17,7 +17,11 @@ var config = {
         infinitescroll: 'Strategery_Infinitescroll/js/infinitescroll'
     },
     shim : {
-       'jqueryIas': { deps: ['jquery'] },
-       'infinitescroll': { deps: ['jqueryIas','jquery'] }
+       'jqueryIas': {
+           deps: ['jquery']
+       },
+       'infinitescroll': {
+           deps: ['jqueryIas','jquery']
+       }
     }
 };
