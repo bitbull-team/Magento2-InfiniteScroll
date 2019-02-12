@@ -90,6 +90,18 @@ define([
                     if ( $("form[data-role='tocart-form']").length ) {
                         $("form[data-role='tocart-form']").catalogAddToCart();
                     }
+                    $(items).find('.product-item').each(function() {
+                      var swatchesConfig = {
+                        selectorProduct: ".product-item-details",
+                        onlySwatches: true,
+                        enableControlLabel: false,
+                        numberToShow: 12,
+                        jsonConfig: $(this).find('.swatch-options-rendered').data("jsonconfig"),
+                        jsonSwatchConfig: $(this).find('.swatch-options-rendered').data("jsonswatchconfig"),
+                        mediaCallback: $(this).find('.swatch-options-rendered').data("mediacallback")
+                      }
+                      $(this).find('.swatch-options-rendered').SwatchRenderer(swatchesConfig);
+                    });
                 });
                 window.ias.on('noneLeft', function(){
                     SgyIAS._log({eventName: 'noneLeft'});
