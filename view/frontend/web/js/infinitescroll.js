@@ -7,17 +7,18 @@
  * available through the world-wide-web at this URL:
  * http://opensource.org/licenses/afl-3.0.php
  *
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- * @copyright  Copyright (c) 2016 Strategery Inc. (http://www.strategery.io/)
- * @author     Damian A. Pastorini (damian.pastorini@dwdeveloper.com)
+ * @license http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright Copyright (c) 2016 Strategery Inc. (http://www.strategery.io/)
+ * @author Damian A. Pastorini (damian.pastorini@strategery.io)
  */
 define([
+    "jquery",
     "jqueryIas",
     "infinitescroll"
 ], function($, jqueryIas, infinitescroll) {
     "use strict";
     window.SgyIAS = {
-        debug: window.iasConfig.mode,
+        debug: window.iasConfig.debug,
         _log: function(object) {
             if(this.debug) {
                 console.log(object);
@@ -86,6 +87,21 @@ define([
                 });
                 window.ias.on('rendered', function(items){
                     SgyIAS._log({eventName: 'render', items: items});
+                    if ( $("form[data-role='tocart-form']").length ) {
+                        $("form[data-role='tocart-form']").catalogAddToCart();
+                    }
+                    $(items).find('.product-item').each(function() {
+                      var swatchesConfig = {
+                        selectorProduct: ".product-item-details",
+                        onlySwatches: true,
+                        enableControlLabel: false,
+                        numberToShow: 12,
+                        jsonConfig: $(this).find('.swatch-options-rendered').data("jsonconfig"),
+                        jsonSwatchConfig: $(this).find('.swatch-options-rendered').data("jsonswatchconfig"),
+                        mediaCallback: $(this).find('.swatch-options-rendered').data("mediacallback")
+                      }
+                      $(this).find('.swatch-options-rendered').SwatchRenderer(swatchesConfig);
+                    });
                 });
                 window.ias.on('noneLeft', function(){
                     SgyIAS._log({eventName: 'noneLeft'});
