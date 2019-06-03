@@ -12,15 +12,16 @@
  * @author Damian A. Pastorini (damian.pastorini@strategery.io)
  */
 var config = {
-    map: {
-        '*': {
-            infinitescroll: 'Strategery_Infinitescroll/js/infinitescroll'
-        }
-    },
     paths: {
-        jqueryIas: 'Strategery_Infinitescroll/js/jquery-ias.min'
+        jqueryIas: 'Strategery_Infinitescroll/js/jquery-ias.min',
+        infinitescroll: 'Strategery_Infinitescroll/js/infinitescroll'
     },
     shim : {
-        jqueryIas: ['jquery']
+       'jqueryIas': {
+           deps: ['jquery']
+       },
+       'infinitescroll': {
+           deps: ['jqueryIas','jquery']
+       }
     }
 };
